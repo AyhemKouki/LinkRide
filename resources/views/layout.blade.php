@@ -42,14 +42,6 @@
             transition: all 0.3s ease;
         }
 
-        .navbar .dropdown-menu .dropdown-item {
-            color: #212529 !important; /* Bootstrap's default dark color */
-        }
-        .navbar .dropdown-menu .dropdown-item:hover {
-            color: #fff !important; /* White text on hover */
-            background-color: #0096c7;
-        }
-
         .navbar .nav-link:hover {
             color: #dff9fb !important;
             transform: translateY(-2px);
@@ -77,7 +69,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg shadow-sm">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('home') }}">
+        <a class="navbar-brand" href="{{ url('/') }}">
             <img src="{{ asset('images/carpool_logo.png') }}" width="50" height="50" alt="LinkRide Logo">
             LinkRide
         </a>
@@ -86,39 +78,22 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <!-- Main Navigation Links -->
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-car-side me-1"></i> Find Rides</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-road me-1"></i> Offer Ride</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-info-circle me-1"></i> About</a>
-                </li>
-
-                <!-- Authentication Links -->
-                @auth
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user-circle me-1"></i> {{ Auth::user()->name }}
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                @if (Route::has('login'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">
+                            <i class="fa-solid fa-arrow-right-to-bracket"></i> Login
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="fas fa-user-cog me-1"></i> Profile</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-car me-1"></i> My Rides</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt me-1"></i> Logout</button>
-                                </form>
-                            </li>
-                        </ul>
                     </li>
-                @endauth
+                @endif
+                @if (Route::has('register'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">
+                            <i class="fa-solid fa-user-plus"></i> Register
+                        </a>
+                    </li>
+                @endif
             </ul>
         </div>
     </div>
@@ -127,6 +102,7 @@
 <!-- Page Content -->
 <main class="flex-grow-1">
     @yield('styles')
+    @yield('content')
 </main>
 
 <!-- Footer -->

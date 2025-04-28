@@ -1,33 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinkRide</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link href={{asset("bootstrap-5.3.5/dist/css/bootstrap.min.css")}} rel="stylesheet">
+@extends('layout')
+
+@section('title', 'Welcome | LinkRide')
+
+@section('content')
+    <!-- Hero Section -->
+    <div class="main-section text-center text-white d-flex align-items-center justify-content-center">
+        <div class="overlay-text px-3">
+            <h1 class="display-4 mb-3">You plan the day, we plan the way.</h1>
+        </div>
+    </div>
+
+    <!-- First Feature (Image Left) -->
+    <div class="container my-5 py-4">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <img src="{{ asset('images/family_car.png') }}"
+                     alt="Family carpooling together"
+                     class="img-fluid rounded shadow">
+            </div>
+            <div class="col-md-6">
+                <h2 class="fw-bold mb-3">Smooth Ride Matching</h2>
+                <p class="lead">
+                    Connect with commuters going your way. Whether you need a ride or have extra seats,
+                    LinkRide makes carpooling simple and efficient for everyone.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Second Feature (Image Right - Flipped) -->
+    <div class="container my-5 py-4  rounded">
+        <div class="row align-items-center">
+            <div class="col-md-6 order-md-2">
+                <img src="{{ asset('images/confortAndSecurity.png') }}"
+                     alt="Comfortable and secure ride"
+                     class="img-fluid rounded shadow">
+            </div>
+            <div class="col-md-6 order-md-1">
+                <h2 class="fw-bold mb-3">Protection and Ease</h2>
+                <p class="lead">
+                    Travel with peace of mind. All our drivers are verified and rides are monitored
+                    to ensure your safety and comfort throughout the journey.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Third Feature (Image Left) -->
+    <div class="container my-5 py-4">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <img src="{{ asset('images/affordable_prices.png') }}"
+                     alt="Affordable carpooling prices"
+                     class="img-fluid rounded shadow">
+            </div>
+            <div class="col-md-6">
+                <h2 class="fw-bold mb-3">Priced for Your Budget</h2>
+                <p class="lead">
+                    Save money on every trip. Split costs with fellow travelers and enjoy
+                    transportation that's kinder to your wallet and the environment.
+                </p>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('styles')
     <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-        }
-        body{
-            font-family: 'Special Gothic Expanded One', sans-serif;
-        }
-        body > .main-section {
-            flex: 0 0 auto;
-        }
         .main-section {
             position: relative;
             height: 300px;
-            background: url('{{ asset("images/car_trip_background.jpg") }}') no-repeat center center;
-            background-size: cover;
+            background: url('{{ asset("images/car_trip_background.png") }}') no-repeat center center/cover;
         }
+
         .main-section::before {
             content: "";
             position: absolute;
@@ -35,92 +80,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.4); /* dark overlay with 40% opacity */
+            background-color: rgba(0, 0, 0, 0.1);
             z-index: 1;
         }
+
         .overlay-text {
             position: relative;
             z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
-
-        .navbar a, .navbar .nav-link, .navbar-brand {
-            color: white !important;
-        }
-        .navbar .nav-link:hover {
-            text-decoration: underline;
-            color: #dff9fb !important;
-        }
-
-        .footer-social i {
-            font-size: 1.8rem;
-            margin-right: 1rem;
-        }
-
     </style>
-
-</head>
-<body>
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg shadow-sm" style="background-color: #0096c7;">
-    <div class="container" >
-        <a class="navbar-brand" href="#"><img src="{{asset("images/carpool_logo.png")}}" width="50" height="50" alt="logo"> LinkRide</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul class="navbar-nav">
-                @if (Route::has('login'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}"><i class="fa-solid fa-arrow-right-to-bracket"></i> Login</a>
-                    </li>
-                @endif
-                @if (Route::has('register'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">Register</a>
-                    </li>
-                @endif
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<!-- Main Content -->
-<div class="main-section text-center text-white d-flex align-items-center justify-content-center">
-    <div class="overlay-text">
-        <h1 class="display-4">You plan the day, we plan the way.</h1>
-    </div>
-</div>
-
-<!-- Footer -->
-<footer class="bg-light text-lg-start mt-auto shadow-sm">
-    <div class="container p-4">
-        <div class="row">
-            <!-- About -->
-            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                <h5 class="text-uppercase">LinkRide</h5>
-                <p>
-                    Making your rides safer, easier, and more eco-friendly. Join our community of smart commuters today.
-                </p>
-            </div>
-
-            <!-- Social -->
-            <div class="col-lg-5 col-md-12 mb-4 mb-md-0 footer-social ">
-                <h5 class="text-uppercase">Follow Us</h5>
-                <a href="#" class="text-dark"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#" class="text-dark"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" class="text-dark"><i class="fa-brands fa-linkedin"></i></a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Copyright -->
-    <div class="text-center p-3 text-white" style="background-color: #0096c7;">
-        © {{ date('Y') }} LinkRide. All rights reserved.
-    </div>
-</footer>
-
-<script src="{{ asset("bootstrap-5.3.5/dist/js/bootstrap.bundle.js") }}"></script>
-</body>
-</html>
+@endsection

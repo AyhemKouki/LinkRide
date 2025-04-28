@@ -113,7 +113,7 @@
     <!-- Square form layout -->
     <div class="page-center">
         <div class="logo-container">
-            <a href="{{ route('home') }}">
+            <a href="{{ url()->previous() }}">
                 <img src="{{ asset('images/carpool_logo.png') }}"
                      alt="LinkRide Logo"
                      class="logo-img">
