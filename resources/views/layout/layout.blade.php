@@ -93,7 +93,7 @@
                     <a class="nav-link" href="#"><i class="fas fa-car-side me-1"></i> Find Rides</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-road me-1"></i> Offer Ride</a>
+                    <a class="nav-link" href="{{route('ride.index')}}"><i class="fas fa-road me-1"></i> Offer Ride</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><i class="fas fa-info-circle me-1"></i> About</a>
@@ -127,6 +127,8 @@
 <!-- Page Content -->
 <main class="flex-grow-1">
     @yield('styles')
+    @yield('ride_content')
+    @yield('ride_create')
 </main>
 
 <!-- Footer -->
