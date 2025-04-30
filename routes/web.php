@@ -14,6 +14,7 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::resources([
         'ride' => RideController::class,
     ]);
+    Route::get('/rides/search', [RideController::class, 'search'])->name('ride.search');
 });
 
 

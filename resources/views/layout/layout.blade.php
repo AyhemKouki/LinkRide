@@ -90,7 +90,7 @@
             <ul class="navbar-nav ms-auto">
                 <!-- Main Navigation Links -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-car-side me-1"></i> Find Rides</a>
+                    <a class="nav-link" href="{{route('ride.search')}}"><i class="fas fa-car-side me-1"></i> Find Rides</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('ride.index')}}"><i class="fas fa-road me-1"></i> Offer Ride</a>
@@ -108,7 +108,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="fas fa-user-cog me-1"></i> Profile</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-car me-1"></i> My Rides</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-car me-1"></i>Reservations</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
@@ -129,6 +129,8 @@
     @yield('styles')
     @yield('ride_content')
     @yield('ride_create')
+    @yield('ride_edit')
+    @yield('ride_search')
 </main>
 
 <!-- Footer -->

@@ -10,7 +10,7 @@
         <div class="card">
 
             {{-- card header --}}
-            <div class="card-header fs-4 fw-bold">All {{ Str::plural('ride') }}</div>
+            <div class="card-header fs-4 fw-bold">My {{ Str::plural('ride') }}</div>
 
             {{-- card body --}}
             <div class="card-body">
@@ -25,7 +25,7 @@
                     {{-- listing all resources --}}
                     @foreach( $rides as $ride)
                         @if(auth()->id() === $ride->driver_id)
-                            <div class="card shadow">
+                            <div class="card shadow mb-3">
                                 <div class="row g-0">
                                     @if($ride->image)
                                         <div class="col-md-4">
@@ -77,9 +77,7 @@
                                             @endif
                                         </div>
 
-                                        <div class="card-footer bg-transparent">
-                                            <a href="{{ route('ride.index') }}" class="btn btn-link ps-0">← Back to Rides</a>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>

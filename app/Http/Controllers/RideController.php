@@ -42,10 +42,6 @@ class RideController extends Controller
         return redirect()->route('ride.index');
     }
 
-    public function show(Ride $ride)
-    {
-        return view('ride.show' , compact('ride'));
-    }
 
     public function edit(Ride $ride)
     {
@@ -83,5 +79,35 @@ class RideController extends Controller
         flash()->success('Ride deleted successfully');
         return redirect()->route('ride.index');
 
+    }
+
+    public function search(Request $request)
+    {
+        $query = Ride::query()->where('departure_time', '>', now());
+
+        // Apply filters
+        if ($request->filled('origin')) {
+            $query->where('origin', 'like', '%' . $request->origin . '%');
+        }
+
+        if ($request->filled('destination')) {
+            $query->where('destination', 'like', '%' . $request->destination . '%');
+        }
+
+        if ($request->filled('date')) {
+            $query->whereDate('departure_time', $request->date);
+        }
+
+        if ($request->filled('seats')) {
+            $query->where('available_seats', '>=', $request->seats);
+        }
+
+        if ($request->filled('max_price')) {
+            $query->where('price_per_seat', '<=', $request->max_price);
+        }
+
+        $rides = $query->orderBy('departure_time')->paginate(10);
+
+        return view('ride.search', compact('rides'));
     }
 }
