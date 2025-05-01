@@ -16,6 +16,11 @@ class Ride extends Model
         'image',
         'notes',
     ];
+
+    public function driver()
+    {
+        return $this->belongsTo(User::class, 'driver_id');
+    }
     protected function casts(): array
     {
         return [

@@ -15,6 +15,8 @@
     <!-- Bootstrap CSS -->
     <link href="{{ asset('bootstrap-5.3.5/dist/css/bootstrap.min.css') }}" rel="stylesheet">
 
+
+
     <style>
         :root {
             --hover-blue: #0077b6;
@@ -131,6 +133,7 @@
     @yield('ride_create')
     @yield('ride_edit')
     @yield('ride_search')
+    @yield('ride_show')
 </main>
 
 <!-- Footer -->
@@ -158,6 +161,7 @@
 
 <!-- Bootstrap JS -->
 <script src="{{ asset('bootstrap-5.3.5/dist/js/bootstrap.bundle.min.js') }}"></script>
+
 @stack('scripts') <!-- For page-specific JS -->
 </body>
 </html>

@@ -81,6 +81,12 @@ class RideController extends Controller
 
     }
 
+    public function show(Ride $ride )
+    {
+        $ride->load('driver');
+        return view('ride.show', compact('ride'));
+    }
+
     public function search(Request $request)
     {
         $query = Ride::query()->where('departure_time', '>', now());

@@ -42,15 +42,26 @@
                                                     {{ $ride->origin }} → {{ $ride->destination }}
                                                 </h3>
 
-                                                    <div class="btn-group">
-                                                        <a href="{{ route('ride.edit', $ride) }}" class="btn btn-outline-primary btn-sm">Edit</a>
-                                                        <form action="{{ route('ride.destroy', $ride) }}" method="POST" class="d-inline">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-outline-danger btn-sm ms-2"
-                                                                    onclick="return confirm('Delete this ride?')">Delete</button>
-                                                        </form>
-                                                    </div>
+                                                <div class=" d-flex flex-wrap gap-2">
+                                                    @if($ride->departure_time > now())
+                                                        <button type="button" class="btn btn-sm  btn-success " disabled>
+                                                            <i class="fas fa-check-circle me-2"></i> Available
+                                                        </button>
+                                                    @else
+                                                        <button type="button" class="btn btn-sm  btn-danger " disabled>
+                                                            <i class="fas fa-times-circle me-2"></i> Date expired
+                                                        </button>
+                                                    @endif
+
+                                                    <a href="{{ route('ride.edit', $ride) }}" class="btn btn-outline-primary btn-sm">Edit</a>
+                                                    <form action="{{ route('ride.destroy', $ride) }}" method="POST" class="d-inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-outline-danger btn-sm "
+                                                                onclick="return confirm('Delete this ride?')">Delete</button>
+                                                    </form>
+                                                </div>
+
 
                                             </div>
 
