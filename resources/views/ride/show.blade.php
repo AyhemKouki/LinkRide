@@ -71,8 +71,8 @@
 
                             <div class="d-flex align-items-center">
                                 <div class="me-3">
-                                    @if($ride->driver->profile_picture)
-                                        <img src="{{ asset('storage/'.$ride->driver->profile_picture) }}"
+                                    @if($ride->driver->profile_image)
+                                        <img src="{{ asset('storage/'.$ride->driver->profile_image) }}"
                                              alt="Driver"
                                              class="rounded-circle"
                                              width="80"
