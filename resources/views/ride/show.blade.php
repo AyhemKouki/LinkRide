@@ -175,5 +175,33 @@
             </div>
         </div>
     </div>
-
+    <!-- Book Ride Modal -->
+    <div class="modal fade" id="bookRideModal" tabindex="-1" aria-labelledby="bookRideModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{route('reservations.store')}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="ride_id" value="{{ $ride->id }}">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="bookRideModalLabel">Book This Ride</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="seats" class="form-label">Number of Seats</label>
+                            <input type="number" class="form-control" id="seats" name="seats" min="1" max="{{ $ride->available_seats }}" value="1" required>
+                        </div>
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Your request will be sent to the driver for confirmation.
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Confirm Booking</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection

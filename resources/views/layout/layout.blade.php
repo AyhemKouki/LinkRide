@@ -72,6 +72,28 @@
             transform: scale(1.2);
             color:  #0096c7 !important;
         }
+
+        .simple-mark-read-btn {
+            background: #f0f4ff;
+            border: none;
+            color: #3b82f6;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .simple-mark-read-btn:hover {
+            background: #e0e7ff;
+            color: #2563eb;
+        }
+
+        .simple-mark-read-btn i {
+            font-size: 16px;
+        }
     </style>
 
 </head>
@@ -100,6 +122,36 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#"><i class="fas fa-info-circle me-1"></i> About</a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-bell"></i>
+                        @if(auth()->user()->unreadNotifications->count())
+                            <span class="badge bg-danger">{{ auth()->user()->unreadNotifications->count() }}</span>
+                        @endif
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        @forelse(auth()->user()->unreadNotifications as $notification)
+                            <li>
+                                <a class="dropdown-item" href="{{ route('reservations.index') }}">
+                                    {{ $notification->data['message'] }}
+                                </a>
+                            </li>
+                        @empty
+                            <li><span class="dropdown-item">No new notifications</span></li>
+                        @endforelse
+                        @if(auth()->user()->unreadNotifications->count())
+                            <li><hr class="dropdown-divider"></li>
+                            <li class="text-center px-3"> <!-- Added text-center and padding classes -->
+                                <form action="{{ route('markNotificationsAsRead') }}" method="POST" class="d-inline-block"> <!-- Changed to d-inline-block -->
+                                    @csrf
+                                    <button type="submit" class="simple-mark-read-btn">
+                                        <i class="fas fa-check-circle me-1"></i> Mark all as read
+                                    </button>
+                                </form>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
 
                 <!-- Authentication Links -->
                 @auth
@@ -110,7 +162,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="fas fa-user-cog me-1"></i> Profile</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-car me-1"></i>Reservations</a></li>
+                            <li><a class="dropdown-item" href="{{route('reservations.index')}}"><i class="fas fa-car me-1"></i>Reservations</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
@@ -119,6 +171,7 @@
                                 </form>
                             </li>
                         </ul>
+
                     </li>
                 @endauth
             </ul>
@@ -134,6 +187,7 @@
     @yield('ride_edit')
     @yield('ride_search')
     @yield('ride_show')
+    @yield('reservation_content')
 </main>
 
 <!-- Footer -->
