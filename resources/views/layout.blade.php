@@ -102,7 +102,7 @@
 <!-- Page Content -->
 <main class="flex-grow-1">
     @yield('styles')
-    @yield('content')
+    @yield('welcome-content')
 </main>
 
 <!-- Footer -->

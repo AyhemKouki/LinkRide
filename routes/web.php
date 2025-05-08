@@ -10,6 +10,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Rides
 Route::middleware(['auth','verified'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::resources([
@@ -18,13 +19,15 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/rides/search', [RideController::class, 'search'])->name('ride.search');
 });
 
-
+// Profile
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+// Reservations and notifications
 Route::middleware('auth')->group(function () {
     Route::get('/reservations', [ReservationController::class, 'index'])
         ->name('reservations.index');
