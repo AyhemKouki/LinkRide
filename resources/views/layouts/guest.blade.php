@@ -14,157 +14,247 @@
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('images/carpool_logo.png') }}" type="image/png">
 
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
-        .gradient-bg {
+        body {
+            font-family: 'Figtree', sans-serif;
             background: linear-gradient(135deg, #0096c7 0%, #00b4d8 50%, #48cae4 100%) fixed;
+            min-height: 100vh;
         }
-        /* Square form styling */
-        .square-card {
-            width: 400px;
-            height: 400px;
-            border-radius: 12px;
-            background: white;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+
+        /* Modern card styling */
+        .auth-card {
+            width: 100%;
+            max-width: 420px;
+            border-radius: 16px;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        /* Profile page styling */
-        .profile-card {
-            background-color: #00b4d8;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
+
+        .auth-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
+
+        .card-header {
+            background-color: white;
+            border-bottom: none;
+            padding: 2rem 2rem 0;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        /* Logo styling */
         .logo-container {
-            margin-bottom: 30px;
-            text-align: center;
-            width: 100%; /* Ensure it takes full width */
-            display: flex; /* Use flexbox */
-            justify-content: center; /* Center horizontally */
-            align-items: center; /* Center vertically if needed */
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+
         .logo-img {
             width: 80px;
             height: auto;
             transition: transform 0.3s ease;
         }
+
         .logo-img:hover {
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(-5deg);
         }
-        .page-center {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
+
+        /* Form styling */
+        .form-control, .form-select {
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
         }
-        .form-content {
-            padding: 30px;
-            width: 100%;
+
+        .form-control:focus, .form-select:focus {
+            border-color: #0096c7;
+            box-shadow: 0 0 0 0.25rem rgba(0, 150, 199, 0.25);
         }
+
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #495057;
+        }
+
+        /* Button styling */
         .btn-primary {
             background-color: #0096c7;
             border-color: #0096c7;
-            width: 100%;
-            padding: 10px;
-            border-radius: 6px;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
         }
-        .btn-primary:hover {
+
+        .btn-primary:hover, .btn-primary:focus {
             background-color: #0077a8;
             border-color: #0077a8;
+            transform: translateY(-2px);
         }
-        .form-control {
-            border-radius: 6px;
-            padding: 10px 15px;
-            border: 1px solid #ddd;
+
+        .btn-outline-light {
+            border-radius: 8px;
+            padding: 0.75rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
-        .form-control:focus {
-            border-color: #0096c7;
-            box-shadow: 0 0 0 0.2rem rgba(0, 150, 199, 0.25);
+
+        .btn-outline-light:hover {
+            transform: translateY(-2px);
         }
-        /* Header styling */
+
+        /* Profile page styling */
+        .profile-card {
+            background-color: white;
+            border-radius: 16px;
+            border: none;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, #0096c7 0%, #00b4d8 50%, #48cae4 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
         .page-header {
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             font-weight: 600;
-            color: #fff;
+            color: white;
             margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .square-card {
-                width: 100%;
-                height: auto;
-                min-height: 400px;
-            }
-            .profile-card {
-                padding: 1rem;
-            }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        /* Centered profile layout */
+        .profile-logo-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            padding: 2rem 0 1rem;
+        }
+
+        /* Gradient text */
+        .text-gradient {
+            background: linear-gradient(135deg, #0096c7 0%, #00b4d8 50%, #48cae4 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
     </style>
 </head>
-<body class="font-sans text-gray-900 antialiased m-0 p-0 gradient-bg">
+<body class="d-flex flex-column min-vh-100">
 @if(isset($slot) && !isset($header))
-    <!-- Square form layout -->
-    <div class="page-center">
-        <div class="logo-container">
-            <a href="{{ url()->previous() }}">
+    <!-- Authentication card layout -->
+    <div class="container d-flex flex-column justify-content-center align-items-center min-vh-100 py-5">
+        <div class="logo-container animate-fade-in">
+            <a href="{{ url()->previous() }}" class="text-decoration-none">
                 <img src="{{ asset('images/carpool_logo.png') }}"
                      alt="LinkRide Logo"
                      class="logo-img">
             </a>
         </div>
 
-        <div class="square-card">
-            <div class="form-content">
+        <div class="auth-card animate-fade-in" style="animation-delay: 0.2s">
+            <div class="card-body p-4 p-md-5">
                 {{ $slot }}
             </div>
         </div>
     </div>
 @else
     <!-- Profile page layout -->
-    <div class="min-h-screen">
-        <div class="logo-container pt-6">
-            <a href="{{ route('home') }}">
-                <img src="{{ asset('images/carpool_logo.png') }}"
-                     alt="LinkRide Logo"
-                     class="logo-img">
-            </a>
-        </div>
+    <div class="flex-grow-1">
+        <div class="container py-4">
+            <div class="profile-logo-container animate-fade-in">
+                <a href="{{ route('home') }}" class="text-decoration-none">
+                    <img src="{{ asset('images/carpool_logo.png') }}"
+                         alt="LinkRide Logo"
+                         class="logo-img">
+                </a>
+            </div>
 
-        @if(isset($header))
-            <header class="flex justify-center"> <!-- Added flex and justify-center -->
-                <h2 class="page-header text-center"> <!-- Ensured text-center -->
-                    {{ $header }}
-                </h2>
-            </header>
-        @endif
+            @if(isset($header))
+                <header class="text-center mb-4 mb-md-5 animate-fade-in" style="animation-delay: 0.2s">
+                    <h1 class="page-header">
+                        {{ $header }}
+                    </h1>
+                </header>
+            @endif
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                {{ $slot }}
+            <div class="row justify-content-center animate-fade-in" style="animation-delay: 0.3s">
+                <div class="col-lg-10 col-xl-8">
+                    {{ $slot }}
+                </div>
             </div>
         </div>
     </div>
 @endif
 
+<!-- Bootstrap 5 JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Add animation to form inputs
-        const inputs = document.querySelectorAll('input, textarea, select');
+        const inputs = document.querySelectorAll('.form-control, .form-select');
         inputs.forEach(input => {
             input.addEventListener('focus', function() {
                 this.style.borderColor = '#0096c7';
-                this.style.boxShadow = '0 0 0 0.2rem rgba(0, 150, 199, 0.25)';
+                this.style.boxShadow = '0 0 0 0.25rem rgba(0, 150, 199, 0.25)';
             });
+
             input.addEventListener('blur', function() {
-                this.style.borderColor = '#ddd';
+                this.style.borderColor = '#e0e0e0';
                 this.style.boxShadow = 'none';
+            });
+        });
+
+        // Add hover effects to cards
+        const cards = document.querySelectorAll('.auth-card, .profile-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+                this.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.2)';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+                this.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.15)';
             });
         });
     });
