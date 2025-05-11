@@ -39,6 +39,15 @@ Route::middleware('auth')->group(function () {
         auth()->user()->unreadNotifications->markAsRead();
         return back()->with('success', 'Notifications marked as read');
     })->name('markNotificationsAsRead');
+
+    Route::get('/reservations/{reservation}/rate', [ReservationController::class, 'showRatingForm'])
+        ->name('reservations.rate');
+
+    Route::post('/reservations/{reservation}/rate', [ReservationController::class, 'submitRating'])
+        ->name('reservations.submit-rating');
+
+    Route::post('/reservations/{reservation}/complete', [ReservationController::class, 'complete'])
+        ->name('reservations.complete');
 });
 
 require __DIR__.'/auth.php';

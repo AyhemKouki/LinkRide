@@ -188,6 +188,7 @@
     @yield('ride_search')
     @yield('ride_show')
     @yield('reservation_content')
+    @yield('rate-content')
 </main>
 
 <!-- Footer -->

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Rating;
 use App\Models\Reservation;
 use App\Models\Ride;
 use App\Notifications\ReservationConfirmed;
@@ -109,4 +110,70 @@ class ReservationController extends Controller
 
         return back()->with('success', 'Reservation canceled.');
     }
+
+    public function complete(Reservation $reservation)
+    {
+        // Only driver can complete
+        if (auth()->id() !== $reservation->ride->driver_id) {
+            abort(403);
+        }
+
+        // Only confirmed reservations can be completed
+        if (!$reservation->isConfirmed()) {
+            return back()->with('error', 'Only confirmed reservations can be completed');
+        }
+
+        $reservation->update(['status' => 'completed']);
+
+        return back()->with('success', 'Reservation marked as completed');
+    }
+
+    public function showRatingForm(Reservation $reservation)
+    {
+        // Ensure the reservation is completed and belongs to the user
+        if (auth()->id() !== $reservation->user_id || $reservation->status !== 'completed') {
+            abort(403);
+        }
+
+        // Check if already rated
+        if ($reservation->rating) {
+            return redirect()->back()->with('error', 'You have already rated this ride.');
+        }
+
+        return view('reservations.rate', compact('reservation'));
+    }
+
+    public function submitRating(Request $request, Reservation $reservation)
+    {
+        // Validate the request
+        $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'nullable|string|max:500'
+        ]);
+
+        // Check authorization and reservation status
+        if (auth()->id() !== $reservation->user_id || $reservation->status !== 'completed') {
+            abort(403);
+        }
+
+        // Check if already rated
+        if ($reservation->rating) {
+            return redirect()->back()->with('error', 'You have already rated this ride.');
+        }
+
+        // Create the rating
+        $rating = Rating::create([
+            'reservation_id' => $reservation->id,
+            'user_id' => auth()->id(),
+            'driver_id' => $reservation->ride->driver_id,
+            'rating' => $request->rating,
+            'comment' => $request->comment
+        ]);
+
+        // Optionally update driver's average rating here or with an event/listener
+
+        return redirect()->route('reservations.index')
+            ->with('success', 'Thank you for rating your ride!');
+    }
+
 }
