@@ -161,6 +161,9 @@ class ReservationController extends Controller
             return redirect()->back()->with('error', 'You have already rated this ride.');
         }
 
+
+
+
         // Create the rating
         $rating = Rating::create([
             'reservation_id' => $reservation->id,
@@ -170,7 +173,10 @@ class ReservationController extends Controller
             'comment' => $request->comment
         ]);
 
+
         // Optionally update driver's average rating here or with an event/listener
+        // Update driver's average
+        $reservation->ride->driver->updateAverageRating();
 
         return redirect()->route('reservations.index')
             ->with('success', 'Thank you for rating your ride!');

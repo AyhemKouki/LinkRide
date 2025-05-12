@@ -47,4 +47,13 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
+
+    public function updateAverageRating()
+    {
+        $avgRating = Rating::where('driver_id', $this->id)
+            ->average('rating'); // SQLite-friendly average calculation
+
+        $this->avg_rating = round($avgRating, 2);
+        $this->save();
+    }
 }

@@ -12,7 +12,7 @@ Route::get('/', function () {
 
 // Rides
 Route::middleware(['auth','verified'])->group(function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/home', [HomeController::class, 'showRatings'])->name('home');
     Route::resources([
         'ride' => RideController::class,
     ]);

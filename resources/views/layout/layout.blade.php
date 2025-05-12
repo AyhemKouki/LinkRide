@@ -114,13 +114,13 @@
             <ul class="navbar-nav ms-auto">
                 <!-- Main Navigation Links -->
                 <li class="nav-item">
+                    <a class="nav-link" href="{{route('home')}}"><i class="fas fa-home me-1"></i> Home</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{route('ride.search')}}"><i class="fas fa-car-side me-1"></i> Find Rides</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('ride.index')}}"><i class="fas fa-road me-1"></i> Offer Ride</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-info-circle me-1"></i> About</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -182,6 +182,7 @@
 <!-- Page Content -->
 <main class="flex-grow-1">
     @yield('styles')
+    @yield('home_content')
     @yield('ride_content')
     @yield('ride_create')
     @yield('ride_edit')
