@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rating;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -16,7 +17,11 @@ class HomeController extends Controller
             ->latest()
             ->paginate(15);
 
+        $drivers = User::select('id', 'name', 'profile_image' , 'avg_rating')
+        ->where('avg_rating', '>', 0)
+        ->limit(3)
+        ->get();
 
-        return view('front.home', compact('ratings'));
+        return view('front.home', compact('ratings','drivers'));
     }
 }
