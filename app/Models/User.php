@@ -56,4 +56,9 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->avg_rating = round($avgRating, 2);
         $this->save();
     }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class, 'driver_id');
+    }
 }

@@ -176,6 +176,63 @@
             background-clip: text;
             color: transparent;
         }
+
+        /* Add these new styles */
+        .auth-container {
+            display: flex;
+            width: 100%;
+            max-width: 900px; /* Increased from 420px to accommodate image */
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: white;
+        }
+
+        .auth-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .auth-image {
+            flex: 1;
+            background-image: url('{{ asset("images/auth-image.png") }}');
+            background-size: cover;
+            background-position: center;
+            display: none; /* Hidden on mobile */
+        }
+
+        .auth-form {
+            flex: 1;
+            padding: 2rem;
+            min-height: 500px; /* Set a minimum height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Show image on larger screens */
+        @media (min-width: 768px) {
+            .auth-image {
+                display: block;
+            }
+        }
+
+        /* Adjust the logo container for the new layout */
+        .auth-logo-container {
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Keep your existing styles, but update the auth-card styles */
+        .auth-card {
+            width: 100%;
+            border-radius: 0;
+            border: none;
+            box-shadow: none;
+        }
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
@@ -190,9 +247,17 @@
             </a>
         </div>
 
-        <div class="auth-card animate-fade-in" style="animation-delay: 0.2s">
-            <div class="card-body p-4 p-md-5">
-                {{ $slot }}
+        <div class="auth-container animate-fade-in" style="animation-delay: 0.2s">
+            <!-- Image Section -->
+            <div class="auth-image"></div>
+
+            <!-- Form Section -->
+            <div class="auth-form">
+                <div class="auth-card">
+                    <div class="card-body p-4 p-md-5">
+                        {{ $slot }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

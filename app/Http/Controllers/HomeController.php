@@ -18,9 +18,13 @@ class HomeController extends Controller
             ->paginate(15);
 
         $drivers = User::select('id', 'name', 'profile_image' , 'avg_rating')
-        ->where('avg_rating', '>', 0)
-        ->limit(3)
-        ->get();
+            ->where('avg_rating', '>', 0)
+            ->withCount('ratings')
+            ->limit(3)
+            ->orderBy('avg_rating', 'desc')
+            ->get();
+
+
 
         return view('front.home', compact('ratings','drivers'));
     }
