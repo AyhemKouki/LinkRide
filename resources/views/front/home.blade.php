@@ -11,6 +11,7 @@
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <div class="col">
                     <div class="card shadow-sm h-100 hover-effect">
+                        <img src="{{asset('images/sousse.jpg')}}" class="card-img-top" style="height: 180px; object-fit: cover;" alt="Sousse">
                         <div class="card-body text-center">
                             <h5 class="card-title">Tunis → Sousse</h5>
                             <p class="text-muted mb-1">From 12 $</p>
@@ -20,6 +21,7 @@
                 </div>
                 <div class="col">
                     <div class="card shadow-sm h-100 hover-effect">
+                        <img src="{{asset('images/monastir.jpg')}}" class="card-img-top" style="height: 180px; object-fit: cover;" alt="Monastir">
                         <div class="card-body text-center">
                             <h5 class="card-title">Sfax → Monastir</h5>
                             <p class="text-muted mb-1">From 10 $</p>
@@ -29,6 +31,7 @@
                 </div>
                 <div class="col">
                     <div class="card shadow-sm h-100 hover-effect">
+                        <img src="{{asset('images/tunis.jpg')}}" class="card-img-top" style="height: 180px; object-fit: cover;" alt="tunis">
                         <div class="card-body text-center">
                             <h5 class="card-title">Nabeul → Tunis</h5>
                             <p class="text-muted mb-1">From 8 $</p>

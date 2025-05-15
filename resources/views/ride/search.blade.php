@@ -1,111 +1,101 @@
 @extends('layout.layout')
 
 @section('title', 'Search Rides')
+
 @section('ride_search')
-
     <div class="container py-5">
-        <div class="row">
-            <div class="col-md-8 mx-auto">
-                <!-- Search Form -->
-                <div class="card shadow-sm mb-4">
-                    <div class="card-header bg-primary text-white">
-                        <h4 class="mb-0"><i class="fas fa-search me-2"></i>Find Your Ride</h4>
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <!-- Search Card -->
+                <div class="card border-0 shadow-lg mb-5 rounded-4">
+                    <div class="card-header bg-gradient bg-primary text-white rounded-top-4">
+                        <h4 class="mb-0 fw-semibold"><i class="fas fa-search me-2"></i>Search for a Ride</h4>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body p-4">
                         <form action="{{ route('ride.search') }}" method="GET">
-                            <div class="row g-3">
-                                <!-- Origin -->
+                            <div class="row g-4">
                                 <div class="col-md-6">
-                                    <label for="origin" class="form-label">From</label>
-                                    <input type="text" class="form-control" id="origin" name="origin"
-                                           value="{{ request('origin') }}" placeholder="Starting point">
+                                    <label for="origin" class="form-label fw-medium">From</label>
+                                    <input type="text" class="form-control rounded-3" id="origin" name="origin"
+                                           placeholder="Departure location" value="{{ request('origin') }}">
                                 </div>
-
-                                <!-- Destination -->
                                 <div class="col-md-6">
-                                    <label for="destination" class="form-label">To</label>
-                                    <input type="text" class="form-control" id="destination" name="destination"
-                                           value="{{ request('destination') }}" placeholder="Destination">
+                                    <label for="destination" class="form-label fw-medium">To</label>
+                                    <input type="text" class="form-control rounded-3" id="destination" name="destination"
+                                           placeholder="Destination" value="{{ request('destination') }}">
                                 </div>
-
-                                <!-- Date -->
-                                <div class="col-md-6">
-                                    <label for="date" class="form-label">Date</label>
-                                    <input type="date" class="form-control" id="date" name="date"
+                                <div class="col-md-4">
+                                    <label for="date" class="form-label fw-medium">Date</label>
+                                    <input type="date" class="form-control rounded-3" id="date" name="date"
                                            value="{{ request('date') }}" min="{{ date('Y-m-d') }}">
                                 </div>
-
-                                <!-- Seats -->
-                                <div class="col-md-3">
-                                    <label for="seats" class="form-label">Seats Needed</label>
-                                    <input type="number" class="form-control" id="seats" name="seats"
+                                <div class="col-md-4">
+                                    <label for="seats" class="form-label fw-medium">Seats Needed</label>
+                                    <input type="number" class="form-control rounded-3" id="seats" name="seats"
                                            value="{{ request('seats', 1) }}" min="1" max="10">
                                 </div>
-
-                                <!-- Max Price -->
-                                <div class="col-md-3">
-                                    <label for="max_price" class="form-label">Max Price</label>
+                                <div class="col-md-4">
+                                    <label for="max_price" class="form-label fw-medium">Max Price</label>
                                     <div class="input-group">
-                                        <span class="input-group-text">$</span>
-                                        <input type="number" class="form-control" id="max_price" name="max_price"
-                                               value="{{ request('max_price') }}" min="0" step="0.01">
+                                        <span class="input-group-text bg-light border-end-0">$</span>
+                                        <input type="number" class="form-control rounded-end-3" id="max_price"
+                                               name="max_price" value="{{ request('max_price') }}" min="0" step="0.01">
                                     </div>
                                 </div>
+                            </div>
 
-                                <!-- Buttons -->
-                                <div class="col-12 d-flex justify-content-between mt-3">
-                                    <button type="submit" class="btn btn-primary px-4">
-                                        <i class="fas fa-search me-2"></i>Search
-                                    </button>
-                                    <a href="{{ route('ride.search') }}" class="btn btn-outline-secondary">
-                                        <i class="fas fa-undo me-2"></i>Reset
-                                    </a>
-                                </div>
+                            <div class="d-flex justify-content-end gap-2 mt-4">
+                                <a href="{{ route('ride.search') }}" class="btn btn-light border px-4">
+                                    <i class="fas fa-undo me-1"></i>Reset
+                                </a>
+                                <button type="submit" class="btn btn-primary px-4 shadow-sm">
+                                    <i class="fas fa-search me-1"></i>Search
+                                </button>
                             </div>
                         </form>
                     </div>
                 </div>
 
-                <!-- Search Results -->
-                <div class="card shadow-sm">
-                    <div class="card-header bg-white">
-                        <h4 class="mb-0"><i class="fas fa-list me-2"></i>Available Rides</h4>
+                <!-- Results Section -->
+                <div class="card border-0 shadow-sm rounded-4">
+                    <div class="card-header bg-white border-bottom-0 rounded-top-4">
+                        <h4 class="fw-semibold mb-0"><i class="fas fa-car-side me-2 text-primary"></i>Available Rides</h4>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body p-4">
                         @if($rides->count() > 0)
-                            <div class="list-group">
+                            <div class="vstack gap-4">
                                 @foreach($rides as $ride)
-                                    <div class="list-group-item list-group-item-action mb-3 rounded-3">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <h5 class="mb-2 text-primary">
-                                                <i class="fas fa-map-marker-alt"></i> {{ $ride->origin }}
-                                                <i class="fas fa-arrow-right mx-2"></i>
-                                                <i class="fas fa-map-marker-alt"></i> {{ $ride->destination }}
+                                    <div class="border rounded-4 p-4 shadow-sm bg-light">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <h5 class="fw-bold text-dark mb-0">
+                                                <i class="fas fa-map-marker-alt text-primary"></i> {{ $ride->origin }}
+                                                <i class="fas fa-arrow-right text-muted mx-2"></i>
+                                                <i class="fas fa-map-marker-alt text-primary"></i> {{ $ride->destination }}
                                             </h5>
-                                            <span class="badge bg-success fs-6">
-                                            ${{ number_format($ride->price_per_seat, 2) }}
-                                        </span>
+                                            <span class="badge bg-success fs-6 px-3 py-2">${{ number_format($ride->price_per_seat, 2) }}</span>
                                         </div>
 
-                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <div class="d-flex justify-content-between text-muted mb-2">
                                             <div>
                                                 <i class="far fa-calendar-alt me-1"></i>
-                                                <strong>{{ $ride->departure_time->format('D, M j, Y') }}</strong>
-                                                at {{ $ride->departure_time->format('g:i A') }}
+                                                {{ $ride->departure_time->format('D, M j, Y') }} -
+                                                {{ $ride->departure_time->format('g:i A') }}
                                             </div>
-                                            <span class="badge bg-info">
-                                            <i class="fas fa-users me-1"></i>
-                                            {{ $ride->available_seats }} available
-                                        </span>
+                                            <div>
+                                                <i class="fas fa-users me-1"></i>
+                                                <span class="badge bg-info text-dark px-3">{{ $ride->available_seats }} seat{{ $ride->available_seats > 1 ? 's' : '' }}</span>
+                                            </div>
                                         </div>
 
                                         @if($ride->notes)
-                                            <p class="mb-2"><i class="fas fa-info-circle me-1"></i> {{ Str::limit($ride->notes, 100) }}</p>
+                                            <p class="text-muted small mb-2">
+                                                <i class="fas fa-info-circle me-1"></i>
+                                                {{ Str::limit($ride->notes, 100) }}
+                                            </p>
                                         @endif
 
-                                        <div class="d-flex justify-content-between align-items-center mt-3">
-
-                                            <a href="{{ route('ride.show', $ride->id) }}" class="btn btn-sm btn-outline-primary">
+                                        <div class="text-end">
+                                            <a href="{{ route('ride.show', $ride->id) }}" class="btn btn-sm btn-outline-primary rounded-pill">
                                                 <i class="fas fa-eye me-1"></i> View Details
                                             </a>
                                         </div>
@@ -118,10 +108,10 @@
                                 {{ $rides->appends(request()->query())->links() }}
                             </div>
                         @else
-                            <div class="alert alert-info text-center">
-                                <i class="fas fa-info-circle fa-2x mb-3"></i>
-                                <h4>No rides found matching your criteria</h4>
-                                <p class="mb-0">Try adjusting your search filters or check back later</p>
+                            <div class="text-center py-5">
+                                <i class="fas fa-info-circle fa-2x text-primary mb-3"></i>
+                                <h5 class="fw-semibold">No rides found</h5>
+                                <p class="text-muted">Try changing the search criteria or check back later.</p>
                             </div>
                         @endif
                     </div>
@@ -129,5 +119,4 @@
             </div>
         </div>
     </div>
-
 @endsection

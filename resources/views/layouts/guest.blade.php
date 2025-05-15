@@ -196,7 +196,7 @@
 
         .auth-image {
             flex: 1;
-            background-image: url('{{ asset("images/auth-image.png") }}');
+            background-image: url('{{ asset("images/auth-image.jpg") }}');
             background-size: cover;
             background-position: center;
             display: none; /* Hidden on mobile */

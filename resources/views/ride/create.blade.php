@@ -14,15 +14,17 @@
                     @csrf
 
 
-                    <div class="card shadow-lg">
+                    <div class="card shadow-lg border-0 rounded-4">
 
                         {{--card title--}}
-                        <div class="card-header fs-4 fw-bold">Create ride</div>
+                        <div class="card-header bg-primary text-white fs-4 fw-semibold rounded-top-4">
+                            <i class="fas fa-car me-2"></i>Create ride
+                        </div>
 
                         {{--card body--}}
                         <div class="card-body">
 
-                            {{-- text --}}
+                            {{-- origin --}}
                             <div class="mb-3">
                                 <div class="row align-items-center">
                                     <div class="col-md-3">
@@ -42,7 +44,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- text --}}
+                            {{-- destination --}}
                             <div class="mb-3">
                                 <div class="row align-items-center">
                                     <div class="col-md-3">
@@ -63,7 +65,7 @@
                                 </div>
                             </div>
 
-                            {{-- date time --}}
+                            {{-- Departure Time --}}
                             <div class="mb-3">
                                 <div class="row align-items-center">
                                     <div class="col-md-3">
@@ -82,7 +84,7 @@
                                 </div>
                             </div>
 
-                            {{-- number input --}}
+                            {{-- Available Seats --}}
                             <div class="mb-3">
                                 <div class="row align-items-center">
                                     <div class="col-md-3">
@@ -104,7 +106,7 @@
                                 </div>
                             </div>
 
-                            {{-- price input --}}
+                            {{-- Price Per Seat --}}
                             <div class="mb-3">
                                 <div class="row align-items-center">
                                     <div class="col-md-3">
@@ -131,7 +133,7 @@
                             </div>
 
 
-                            {{-- Notes field --}}
+                            {{-- Notes --}}
                             <div class="mb-3">
                                 <div class="row align-items-start">
                                     <div class="col-md-3">
@@ -151,30 +153,32 @@
                                 </div>
                             </div>
 
-
-
-                            {{-- image upload --}}
+                            {{-- Image Upload --}}
                             <div class="mb-3">
                                 <div class="row align-items-center">
                                     <div class="col-md-3">
-                                        <label for="image">Upload Image</label>
+                                        <label for="image" class="form-label fw-semibold">Upload Vehicle Image</label>
                                     </div>
                                     <div class="col-md-9">
-                                        <div class="input-group">
-                                            <input type="file"
-                                                   id="image"
-                                                   name="image"
-                                                   accept="image/*"
-                                                   class="form-control">
-                                        </div>
-                                        <small class="text-muted"> Upload an image of your vehicle.</small>
+                                        <input type="file"
+                                               name="image"
+                                               id="image"
+                                               class="form-control @error('image') is-invalid @enderror"
+                                               accept="image/*"
+                                               onchange="previewImage(event)">
+                                        <small class="text-muted">Max size 2MB. JPG, PNG recommended.</small>
                                         @error('image')
-                                        <div class="alert alert-danger py-2 mt-2">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
+                                    </div>
+
+                                    {{-- Preview --}}
+                                    <div id="imagePreview" class="mt-3 d-none">
+                                        <p class="fw-semibold">Image Preview:</p>
+                                        <img id="preview" src="#" class="img-fluid rounded border" style="max-height: 300px;" alt="Preview">
                                     </div>
                                 </div>
                             </div>
-
 
 
 
@@ -197,5 +201,27 @@
 
         </div>
     </div>
+
+    @push('scripts')
+        <script>
+            function previewImage(event) {
+                const input = event.target;
+                const preview = document.getElementById('preview');
+                const previewContainer = document.getElementById('imagePreview');
+
+                if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        preview.src = e.target.result;
+                        previewContainer.classList.remove('d-none');
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+        </script>
+    @endpush
+
 
 @endsection

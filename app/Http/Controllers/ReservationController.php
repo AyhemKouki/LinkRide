@@ -55,10 +55,12 @@ class ReservationController extends Controller
             'status' => 'pending'
         ]);
 
+        flash()->info('Your booking request has been sent to the driver.');
         // Notify driver
         $ride->driver->notify(new ReservationRequest($reservation));
 
-        return redirect()->back()->with('success', 'Your booking request has been sent to the driver.');
+
+        return redirect()->back();
     }
 
     public function confirm(Reservation $reservation)
